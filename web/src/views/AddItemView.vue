@@ -170,6 +170,9 @@ import {
 import { CheckIcon, ChevronUpDownIcon, TrashIcon } from '@heroicons/vue/20/solid'
 
 import { useSheetStore } from '@/stores/sheet-store'
+import { useItemStore } from '@/stores/items-store'
+import { useContributionStore } from '@/stores/contributions-store'
+
 import type { IParticipant } from '@/types/participant'
 
 interface IFormValueError<T> {
@@ -188,6 +191,8 @@ interface IFormData {
 const route = useRoute()
 const router = useRouter()
 const sheetStore = useSheetStore()
+const itemStore = useItemStore()
+const contributionStore = useContributionStore()
 
 const sheetId = computed(() => route.params.id as string)
 
@@ -258,15 +263,27 @@ function addItem() {
   if (validateForm()) {
     const id = self.crypto.randomUUID()
     const paidBy = formData.value.paidBy.value as IParticipant
+    const amount = formData.value.amount.value
+    const contributors = formData.value.contributors.value
 
-    sheetStore.addItem({
+    const amountPerContributor = amount / contributors.length
+
+    itemStore.addItem({
       sheetId: sheetId.value,
       id,
       name: formData.value.name.value,
       description: formData.value.description.value,
-      amount: formData.value.amount.value,
+      amount,
       paidBy,
-      contributors: formData.value.contributors.value,
+      contributors,
+      amountPerContributor
+    })
+
+    contributionStore.addContribution({
+      sheetId: sheetId.value,
+      itemId: id,
+      contributors,
+      amount: amountPerContributor
     })
 
     clearInputs()

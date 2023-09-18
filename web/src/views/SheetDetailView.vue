@@ -19,21 +19,56 @@
     </div>
 
     <div class="w-full max-w-md px-6">
-      <div class="mt-24">
+      <h3 class="mt-24 text-3xl font-semibold text-gray-900 capitalize">
         {{ sheet?.name }}
-      </div>
+      </h3>
 
-      <div>
+      <h4 class="mt-2 text-lg leading-6 text-gray-900">
         {{ sheet?.description }}
+      </h4>
+
+      <div class="mt-4 border rounded-md shadow-sm p-4 bg-white">
+        <h5 class="text-xl font-semibold text-gray-900 capitalize">Summary</h5>
+
+        <div class="my-2 border-t border-gray-200"></div>
+
+        <h6 class="text-lg font-medium">amount to pay</h6>
+
+        <p class="mt-2 text-sm" v-for="participant in sheet?.participants" :key="participant.id">
+          <span class="font-medium">{{ participant.name }}:</span> {{ contributionStore.amountToPay(sheetId,
+            participant.id) }}
+        </p>
+
+        <div class="my-2 border-t border-gray-200"></div>
+
+        <p class="text-sm">
+          <span class="font-medium">total:</span> {{ contributionStore.totalAmount(sheetId) }}
+        </p>
       </div>
 
-      <!-- item list -->
-      <div v-for="item in sheetItems" :key="item.id">
-        <div>name {{ item.name }}</div>
-        <div>description {{ item.description }}</div>
-        <div>amount {{ item.amount }}</div>
-        <div>paidBy {{ item.paidBy }}</div>
-        <div>contributors {{ item.contributors.map(c => c.name) }}</div>
+      <div class="mt-6">
+        <div v-for="item in sheetItems" :key="item.id" class="mb-4 border rounded-md shadow-sm p-4 bg-white">
+          <h5 class="text-xl font-semibold text-gray-900 capitalize">{{ item.name }}</h5>
+          <p class="text-gray-800">{{ item.description }}</p>
+
+          <div class="my-2 border-t border-gray-200"></div>
+
+          <p class="text-sm">
+            <span class="font-medium">amount:</span> {{ item.amount }}
+          </p>
+
+          <p class="text-sm">
+            <span class="font-medium">paid by:</span> {{ item.paidBy.name }}
+          </p>
+
+          <p class="text-sm">
+            <span class="font-medium">contributors:</span> {{ item.contributors.map(c => c.name) }}
+          </p>
+
+          <p class="text-sm">
+            <span class="font-medium">amount per contributor:</span> {{ item.amountPerContributor.toFixed(2) }}
+          </p>
+        </div>
       </div>
     </div>
   </main>
@@ -44,10 +79,14 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import { useSheetStore } from '@/stores/sheet-store'
+import { useItemStore } from '@/stores/items-store'
+import { useContributionStore } from '@/stores/contributions-store'
 
 const route = useRoute()
 const router = useRouter()
 const sheetStore = useSheetStore()
+const itemStore = useItemStore()
+const contributionStore = useContributionStore()
 
 const sheetId = computed(() => route.params.id as string)
 
@@ -56,7 +95,7 @@ const sheet = computed(() => {
 })
 
 const sheetItems = computed(() => {
-  return sheetStore.getSheetItems(sheetId.value)
+  return itemStore.getSheetItems(sheetId.value)
 })
 
 function addItem() {

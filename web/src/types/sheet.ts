@@ -15,4 +15,5 @@ export interface ISheetItem {
   amount: number
   paidBy: IParticipant
   contributors: IParticipant[]
+  amountPerContributor: number
 }

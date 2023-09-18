@@ -1,4 +1,4 @@
-type StorageKeys = 'count' | 'sheets' | 'items'
+type StorageKeys = 'count' | 'sheets' | 'items' | 'contributions'
 
 const Storage = {
   getItem: (key: StorageKeys) => {
