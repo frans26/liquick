@@ -1,8 +1,11 @@
 <template>
-  <main class="w-full min-h-screen flex justify-center p-6 bg-stone-100">
-    <div class="w-full max-w-md">
-      <h4 class="text-center text-2xl font-semibold">Add Sheet</h4>
-
+  <main class="w-full min-h-screen flex justify-center bg-stone-100">
+    <div class="w-full px-6 fixed pt-6 pb-4 bg-white shadow-sm">
+      <div class="flex justify-center  items-center">
+        <h4 class="text-center text-2xl font-semibold">Add Sheet</h4>
+      </div>
+    </div>
+    <div class="w-full max-w-md mt-24 px-4">
       <div class="mt-4">
         <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
 
