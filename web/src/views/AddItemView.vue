@@ -1,22 +1,24 @@
 <template>
   <main class="w-full min-h-screen flex justify-center bg-neutral-100">
-    <div class="w-full px-6 fixed pt-6 pb-4 bg-white shadow-sm">
-      <div class="flex justify-between items-center">
+    <PageHeader>
+      <template #left>
         <button
-          class="rounded-md bg-white border border-blue-500 px-3 py-2 text-sm font-semibold text-blue-500 shadow-sm hover:bg-blue-100"
+          class="rounded-md bg-white border border-blue-500 px-3 py-1 min-h-[36px] text-sm font-semibold text-blue-500 shadow-sm hover:bg-blue-100"
           @click="() => router.back()">
-          Back
+          <ChevronLeftIcon class="text-blue-500 h-5 w-5" />
         </button>
+      </template>
 
-        <h4 class="text-center text-2xl font-semibold">Add Item</h4>
+      <span>Item</span>
 
+      <template #right>
         <button
           class="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
           @click="addItem">
-          Save
+          Add item
         </button>
-      </div>
-    </div>
+      </template>
+    </PageHeader>
 
     <div class="w-full max-w-md mt-24 px-4">
       <div>
@@ -167,13 +169,14 @@ import {
   ListboxOptions,
   ListboxOption,
 } from '@headlessui/vue'
-import { CheckIcon, ChevronUpDownIcon, TrashIcon } from '@heroicons/vue/20/solid'
+import { CheckIcon, ChevronLeftIcon, ChevronUpDownIcon, TrashIcon } from '@heroicons/vue/20/solid'
 
 import { useSheetStore } from '@/stores/sheet-store'
 import { useItemStore } from '@/stores/items-store'
 import { useContributionStore } from '@/stores/contributions-store'
-
 import type { IParticipant } from '@/types/participant'
+
+import PageHeader from '@/components/PageHeader.vue'
 
 interface IFormValueError<T> {
   value: T,

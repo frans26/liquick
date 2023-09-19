@@ -1,11 +1,10 @@
 <template>
   <main class="w-full min-h-screen flex justify-center bg-stone-100">
-    <div class="w-full px-6 fixed pt-6 pb-4 bg-white shadow-sm">
-      <div class="flex justify-center  items-center">
-        <h4 class="text-center text-2xl font-semibold">Add Sheet</h4>
-      </div>
-    </div>
-    <div class="w-full max-w-md mt-24 px-4">
+    <PageHeader>
+      Add Sheet
+    </PageHeader>
+
+    <div class="w-full max-w-md mt-20 px-4">
       <div class="mt-4">
         <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
 
@@ -80,6 +79,8 @@ import { PlusIcon, TrashIcon } from '@heroicons/vue/20/solid'
 
 import { useSheetStore } from '@/stores/sheet-store'
 import type { IParticipant } from '@/types/participant'
+
+import PageHeader from '@/components/PageHeader.vue'
 
 const router = useRouter()
 const sheetStore = useSheetStore()
