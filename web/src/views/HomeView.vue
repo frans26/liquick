@@ -14,8 +14,8 @@
 
     <div class="w-full max-w-md px-4">
       <div class="mt-24">
-        <SheetItem v-for="sheet in sheetStore.sheets" :key="sheet.id" @click="router.push(`/sheet/${sheet.id}`)"
-          :name="sheet.name" :description="sheet.description" />
+        <SheetItem v-for="sheet in sheetStore.sheets" :key="sheet.id" :name="sheet.name" :description="sheet.description"
+          @view="router.push(`/sheet/${sheet.id}`)" @delete="null" />
       </div>
     </div>
   </main>
